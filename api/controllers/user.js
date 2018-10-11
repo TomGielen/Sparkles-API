@@ -3,6 +3,41 @@ const User = require('../models/User');
 const mongoose = require('mongoose');
 
 
+exports.user_getAll = (req, res, next) => {
+	User.find()
+	.select('_id personal_details_id interest_id firstName lastName device_id sex preference userImage') // define what lines you should see in the response object
+	.exec()
+	.then(docs => {
+		const response = {
+			count: docs.length,
+			users: docs.map(doc => { // structure the output of the response and add it the way tom en me like <3
+				return {
+					_id: doc._id,
+					personal_details_id: doc.personal_details_id,
+					interest_id: doc.interest_id,
+					firstName: doc.firstName,
+					lastName: doc.lastName,
+					device_id: doc.device_id,
+					sex: doc.sex,
+					preference: doc.preference,
+					userImage: doc.userImage,
+					request: {
+						type: 'get',
+						description: 'GET_THIS_USER',
+						url: 'http://localhost:3000/user/' + doc._id,
+					}
+				}
+			})
+		}
+		res.status(200).json(response)
+	})
+	.catch(err => {
+		res.status(500).json({
+			error: err
+		})
+	})
+}
+
 exports.user_signup = (req, res, next) => {
 	console.log(req.file)
 	User.find({ device_id: req.body.device_id }).exec()
