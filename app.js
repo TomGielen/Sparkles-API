@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 
 // set routes
 app.use('/user', userRoutes); // user route 
-app.use('/message', messageRoutes); // message route
+app.use('/messages', messageRoutes); // message route
 app.use('/relation', relationRoutes); // message route
 app.use('/matching', matchingRoutes); // matching route
 
