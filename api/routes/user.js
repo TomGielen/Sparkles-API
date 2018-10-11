@@ -29,6 +29,7 @@ const upload = multer({
 	fileFilter: fileFilter
 });
 
+router.get("/" , userController.user_getAll )
 router.post("/signup", upload.single('userImage'), userController.user_signup )
 router.post('/login', userController.user_login)
 router.delete('/:userId', userController.user_delete)
