@@ -85,8 +85,8 @@ exports.relation_update = (req, res, next) => {
 exports.relation_messages = (req, res, next) => {
 	const relation_id = req.params.relation_id;
 
-	Message.find()
-        .sort('date_send')
+	Message.find(/*{ relation_id: relation_id }*/)
+        //.sort('date_send')
         .exec()
 		.then(relation => {
 			res.status(200).json({
