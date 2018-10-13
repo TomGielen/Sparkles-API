@@ -3,16 +3,16 @@ const mongoose = require('mongoose');
 
 exports.message_get_all = (req, res, next) => {
 	Message.find()
-		.select('_id sender message date_send relation_id') // define what lines you should see in the response object
+		.select('_id user text createdAt relation_id') // define what lines you should see in the response object
 		.exec()
 		.then(docs => {
 			const response = {
 				count: docs.length,
 				messages: docs.map(doc => { // structure the output of the response and add it the way tom en me like <3
 					return {
-						sender: doc.sender,
-						message: doc.message,
-						date_send: doc.date_send,
+						user: doc.user,
+						text: doc.text,
+						createdAt: doc.createdAt,
 						relation_id: doc.relation_id,
 						_id: doc._id,
 						request: {
@@ -37,9 +37,9 @@ exports.message_create = (req, res, next) => {
 	const io = req.app.get('io')
 	const message = new Message({
 		_id: new mongoose.Types.ObjectId(),
-		sender: req.body.sender,
-		message: req.body.message,
-		date_send: new Date(),
+		user: req.body.user,
+		text: req.body.text,
+		createdAt: new Date(),
 		relation_id: req.body.relation_id,
 	})
 
@@ -49,9 +49,9 @@ exports.message_create = (req, res, next) => {
 			res.status(201).json({
 				message: 'Added message succesfully!',
 				createdMessage: {
-					sender: result.sender,
-					message: result.message,
-					date_send: result.date_send,
+					user: result.user,
+					text: result.text,
+					createdAt: result.createdAt,
 					relation_id: result.relation_id,
 					_id: result._id,
 					request: {
@@ -73,7 +73,7 @@ exports.message_get_by_id = (req, res, next) => {
 	const id = req.params.messageId
 
 	Message.findById(id)
-		.select('_id sender message date_send relation_id')
+		.select('_id user text createdAt relation_id')
 		.exec()
 		.then(doc => {
 			if (doc) {
