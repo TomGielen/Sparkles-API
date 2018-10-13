@@ -86,7 +86,7 @@ exports.relation_messages = (req, res, next) => {
 	const relation_id = req.params.relation_id;
 
 	Message.find(/*{ relation_id: relation_id }*/)
-		.reverse('date_send')
+		.sort('date_send')
         .exec()
 		.then(relation => {
 			res.status(200).json({
