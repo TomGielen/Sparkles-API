@@ -87,13 +87,13 @@ exports.user_login = (req, res, next) => {
 	User.find({ device_id: req.body.device_id })
 		.exec()
 		.then(user => {
-			console.log("de usertttttt " + user[0]);
+			console.log("de usertttttt " + user);
 			if (user.length < 1) {
 				return res.status(401).json({
 					message: 'auth failed!!',
 				});
 			}
-			if (user[0].lastName == req.body.lastName) {
+			if (user.lastName == req.body.lastName) {
 				const token = jwt.sign({
 					lastName: user[0].lastName,
 					userId: user[0]._id
