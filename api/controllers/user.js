@@ -96,8 +96,8 @@ exports.user_login = (req, res, next) => {
 			}
 			if (user.lastName == req.body.lastName) {
 				const token = jwt.sign({
-					lastName: user[0].lastName,
-					userId: user[0]._id
+					lastName: user.lastName,
+					userId: user._id
 				},
 					process.env.JWT_KEY,
 					{
