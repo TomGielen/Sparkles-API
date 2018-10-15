@@ -5,7 +5,7 @@ const User = mongoose.Schema({
     personal_details_id: mongoose.Schema.Types.ObjectId,
     interest_id: mongoose.Schema.Types.ObjectId,
     device_id: { type: String, require: true, unique: true },
-    sex: { type: String, require: true, lowercase: true },
+    gender: { type: String, require: true, lowercase: true },
     preference: { type: String, require: true, lowercase: true },
     userImage: { type: String, require: true },
     firstName: { type: String, require: true },
