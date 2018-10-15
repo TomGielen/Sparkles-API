@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 exports.user_getAll = (req, res, next) => {
 	User.find()
-	.select('_id personal_details_id interest_id firstName lastName device_id sex preference userImage') // define what lines you should see in the response object
+	.select('_id personal_details_id interest_id firstName lastName device_id sex preference userImage search_spark succes_rate language') // define what lines you should see in the response object
 	.exec()
 	.then(docs => {
 		const response = {
@@ -21,6 +21,9 @@ exports.user_getAll = (req, res, next) => {
 					sex: doc.sex,
 					preference: doc.preference,
 					userImage: doc.userImage,
+					search_spark: doc.search_spark,
+					succes_rate: doc.succes_rate,
+					language: doc.language,
 					request: {
 						type: 'get',
 						description: 'GET_THIS_USER',
@@ -56,7 +59,7 @@ exports.user_signup = (req, res, next) => {
 					device_id: req.body.device_id,
 					sex: req.body.sex,
 					preference: req.body.preference,
-					userImage: req.file.path
+					userImage: req.file.path,
 				})
 				user.save()
 					.then(result => {
