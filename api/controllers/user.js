@@ -84,20 +84,14 @@ exports.user_signup = (req, res, next) => {
 }
 
 exports.user_login = (req, res, next) => {
-	console.log('rick')
+	
 	User.find({ device_id: req.body.device_id })
 		.exec()
 		.then(user => {
-			console.log("de usertttttt " + user);
-			if (user.length < 1) {
-				return res.status(401).json({
-					message: 'auth failed!!',
-				});
-			}
-			if (user.lastName == req.body.lastName) {
+			if (user[0].lastName == req.body.lastName) {
 				const token = jwt.sign({
-					lastName: user.lastName,
-					userId: user._id
+					lastName: user[0].lastName,
+					userId: user[0]._id
 				},
 					process.env.JWT_KEY,
 					{
@@ -111,7 +105,7 @@ exports.user_login = (req, res, next) => {
 				});
 			}
 			res.status(401).json({
-				message: 'auth failed',
+				message: 'auth failed2',
 			});
 		})
 		.catch(err => {
