@@ -84,6 +84,7 @@ exports.user_signup = (req, res, next) => {
 }
 
 exports.user_login = (req, res, next) => {
+	console.log('rick')
 	User.find({ device_id: req.body.device_id })
 		.exec()
 		.then(user => {
