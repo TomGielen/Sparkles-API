@@ -43,9 +43,9 @@ app.use((req, res, next) => {
 
 // set routes
 app.use('/user', userRoutes); // user route 
+app.use('/matching', matchingRoutes); // matching route
 app.use('/message', messageRoutes); // message route
 app.use('/relation', relationRoutes); // message route
-app.use('/matching', matchingRoutes); // matching route
 
 app.use((req, res, next) => {
 	const error = new Error('Not found!!!');

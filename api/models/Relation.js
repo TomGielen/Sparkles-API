@@ -5,8 +5,8 @@ const Relation = mongoose.Schema({
     first_user_id: { type: mongoose.Schema.Types.ObjectId, require: true, },
     second_user_id: { type: mongoose.Schema.Types.ObjectId, require: true, },
     start_date: { type: Date, require: true, },
-    progress: { type: Number, require: true, },
-    status: { type: String, require: true, }
+    progress: { type: Number, require: true, default: 0 },
+    status: { type: String, require: true }
 })
 module.exports = mongoose.model('Relation', Relation)
  
