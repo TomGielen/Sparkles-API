@@ -6,6 +6,7 @@ exports.create_match = (req, res, next) => {
     const preference = req.params.preference;
     const language = req.params.language;
     const user_id = req.params.user_id;
+    const newRelationId = new mongoose.Types.ObjectId();
 
     User.find()
         .where('_id').ne(user_id)
@@ -22,7 +23,7 @@ exports.create_match = (req, res, next) => {
             }
             // create relation
             const relation = new Relation({
-                _id: new mongoose.Types.ObjectId(),
+                _id: newRelationId,
                 first_user_id: user_id,
                 second_user_id: users[0],
                 start_date: new Date(),
@@ -30,8 +31,11 @@ exports.create_match = (req, res, next) => {
             })
             relation.save().then(result => {
                  // update the founded match
-                User.update({ _id: users[0]._id }, { $set: { search_spark: false }}).exec()
-                
+                User.update({ _id: users[0]._id }, { $set: { 
+                    search_spark: false,
+                    active_relation_id: newRelationId 
+                }}).exec()
+
                 res.status(200).json({
                     confirmation: 'match found and created new relation',
                     data: result
@@ -45,7 +49,10 @@ exports.create_match = (req, res, next) => {
             })
         })
         // update the current user 
-        User.update({ _id: user_id }, { $set: { search_spark: false }}).exec()
+        User.update({ _id: user_id }, { $set: { 
+            search_spark: false,
+            active_relation_id: newRelationId
+        }}).exec()
 }
 
 //const preference = req.params.preference;

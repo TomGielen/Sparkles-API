@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 exports.user_getAll = (req, res, next) => {
 	User.find()
-	.select('_id personal_details_id interest_id firstName lastName device_id gender preference userImage search_spark succes_rate language') // define what lines you should see in the response object
+	.select('_id personal_details_id interest_id firstName lastName device_id gender preference userImage search_spark succes_rate language active_relation_id') // define what lines you should see in the response object
 	.exec()
 	.then(docs => {
 		const response = {
