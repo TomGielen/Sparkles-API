@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 
 exports.relation_get_all = (req, res, next) => {
 
-    Relation.find()
-        .exec()
+	Relation.find()
+		.exec()
 		.then(relation => {
 			res.status(200).json({
 				confirmation: 'gelukt',
@@ -75,7 +75,7 @@ exports.relation_update = (req, res, next) => {
 			res.status(200).json({
 				message: 'relation updated!',
 				result: result
-			 })
+			})
 		})
 		.catch(err => {
 			res.status(500).json({ error: err })
@@ -87,7 +87,7 @@ exports.relation_messages = (req, res, next) => {
 
 	Message.find(/*{ relation_id: relation_id }*/)
 		.sort('date_send')
-        .exec()
+		.exec()
 		.then(relation => {
 			res.status(200).json({
 				confirmation: 'gelukt',
@@ -108,13 +108,12 @@ exports.relation_active = (req, res, next) => {
 	Relation.find()
 		.or([{ first_user_id: user_id }, { second_user_id: user_id }])
 		.where('status', 'active')
-		//.select('relation_id') // define what lines you should see in the response object
+		.select('first_user_id second_user_id start_date progress status') // define what lines you should see in the response object
 		.exec()
 		.then(relation => {
-			res.status(200).json({
-				confirmation: 'gelukt',
-				data: relation
-			})
+			res.status(200).json(
+				relation
+			)
 		})
 		.catch(err => {
 			res.json({

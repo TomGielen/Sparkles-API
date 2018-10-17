@@ -33,7 +33,6 @@ exports.create_match = (req, res, next) => {
                  // update the founded match
                 User.update({ _id: users[0]._id }, { $set: { 
                     search_spark: false,
-                    active_relation_id: newRelationId 
                 }}).exec()
 
                 res.status(200).json({
@@ -51,7 +50,6 @@ exports.create_match = (req, res, next) => {
         // update the current user 
         User.update({ _id: user_id }, { $set: { 
             search_spark: false,
-            active_relation_id: newRelationId
         }}).exec()
 }
 

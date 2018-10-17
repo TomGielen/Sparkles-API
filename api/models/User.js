@@ -13,7 +13,6 @@ const User = mongoose.Schema({
     search_spark: { type: Boolean, require: true, default: true },
     succes_rate: { type: Number, require: true, default: 80 },
     language: { type: String, require: true, default: 'dutch', lowercase: true },
-    active_relation_id : mongoose.Schema.Types.ObjectId,
 })
 module.exports = mongoose.model('User', User)
 

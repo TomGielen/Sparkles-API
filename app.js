@@ -24,7 +24,7 @@ mongoose.connect('mongodb+srv://tom:rickandmorty@sparkapi-vk9px.gcp.mongodb.net/
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));
-app.use('./upload', express.static('upload'));
+app.use('/upload', express.static('upload'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
