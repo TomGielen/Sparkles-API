@@ -17,11 +17,6 @@ exports.create_match = (req, res, next) => {
         .exec()
         .then(users => {
             if (users < 1) {
-                User.update({ _id: user_id }, {
-                    $set: {
-                        search_spark: 'waiting',
-                    }
-                }).exec()
                 res.status(400).json({
                     message: 'match not found',
                 })
