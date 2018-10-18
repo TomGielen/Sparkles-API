@@ -8,7 +8,7 @@ const hardcoded = {
 
 exports.user_getAll = (req, res, next) => {
 	User.find()
-		.select(`_id personal_details_id interest_id firstName lastName device_id gender preference userImage search_spark succes_rate language `) // define what lines you should see in the response object
+		.select(`_id personal_details_id interest_id firstName lastName device_id gender preference userImage status succes_rate language `) // define what lines you should see in the response object
 		.exec()
 		.then(docs => {
 
@@ -25,7 +25,7 @@ exports.user_getAll = (req, res, next) => {
 						gender: doc.gender,
 						preference: doc.preference,
 						userImage: doc.userImage,
-						search_spark: doc.search_spark,
+						status: doc.status,
 						succes_rate: doc.succes_rate,
 						language: doc.language,
 						request: {
@@ -47,7 +47,7 @@ exports.user_getAll = (req, res, next) => {
 
 exports.user_byId = (req, res, next) => {
 	User.findById(req.params.userId)
-		.select(`_id personal_details_id interest_id firstName lastName device_id gender preference userImage search_spark succes_rate language `) // define what lines you should see in the response object
+		.select(`_id personal_details_id interest_id firstName lastName device_id gender preference userImage status succes_rate language `) // define what lines you should see in the response object
 		.exec()
 		.then(doc => {
 			res.status(200).json({
@@ -60,7 +60,7 @@ exports.user_byId = (req, res, next) => {
 				gender: doc.gender,
 				preference: doc.preference,
 				userImage: doc.userImage,
-				search_spark: doc.search_spark,
+				status: doc.status,
 				succes_rate: doc.succes_rate,
 				language: doc.language,
 			})

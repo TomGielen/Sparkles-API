@@ -10,7 +10,7 @@ exports.create_match = (req, res, next) => {
 
     User.find()
         .where('_id').ne(user_id)
-        .where('search_spark').equals(true)
+        .where('status').equals('searching')
         .where('language', language)
         .where('gender', preference)
         .select('firstName _id')
@@ -36,7 +36,7 @@ exports.create_match = (req, res, next) => {
                     // update the founded match
                     User.update({ _id: users[0]._id }, {
                         $set: {
-                            search_spark: false,
+                            status: 'in_relation',
                         }
                     }).exec()
 
@@ -48,7 +48,7 @@ exports.create_match = (req, res, next) => {
                     // update the current user 
                     User.update({ _id: user_id }, {
                         $set: {
-                            search_spark: false,
+                            status: 'in_relation',
                         }
                     }).exec()
                 })
