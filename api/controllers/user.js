@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const mongoose = require('mongoose');
+const hardcoded = {
+	JWT_KEY: "abradolf"
+}
 
 
 exports.user_getAll = (req, res, next) => {
@@ -48,20 +51,20 @@ exports.user_byId = (req, res, next) => {
 		.exec()
 		.then(doc => {
 			res.status(200).json({
-						_id: doc._id,
-						personal_details_id: doc.personal_details_id,
-						interest_id: doc.interest_id,
-						firstName: doc.firstName,
-						lastName: doc.lastName,
-						device_id: doc.device_id,
-						gender: doc.gender,
-						preference: doc.preference,
-						userImage: doc.userImage,
-						search_spark: doc.search_spark,
-						succes_rate: doc.succes_rate,
-						language: doc.language,
-					})
-				})
+				_id: doc._id,
+				personal_details_id: doc.personal_details_id,
+				interest_id: doc.interest_id,
+				firstName: doc.firstName,
+				lastName: doc.lastName,
+				device_id: doc.device_id,
+				gender: doc.gender,
+				preference: doc.preference,
+				userImage: doc.userImage,
+				search_spark: doc.search_spark,
+				succes_rate: doc.succes_rate,
+				language: doc.language,
+			})
+		})
 		.catch(err => {
 			res.status(500).json({
 				error: err
@@ -139,7 +142,7 @@ exports.user_login = (req, res, next) => {
 					lastName: user[0].lastName,
 					userId: user[0]._id
 				},
-					process.env.JWT_KEY,
+					hardcoded.JWT_KEY,
 					{
 						expiresIn: "1h",
 					},
