@@ -16,7 +16,9 @@ exports.create_match = (req, res, next) => {
         .select('firstName _id')
         .exec()
         .then(users => {
+            console.log(users)
             if (users < 1) {
+                console.log(users)
                 res.status(400).json({
                     message: 'match not found',
                 })
