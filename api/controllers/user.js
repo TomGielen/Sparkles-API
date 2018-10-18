@@ -8,6 +8,7 @@ exports.user_getAll = (req, res, next) => {
 		.select(`_id personal_details_id interest_id firstName lastName device_id gender preference userImage search_spark succes_rate language `) // define what lines you should see in the response object
 		.exec()
 		.then(docs => {
+
 			const response = {
 				count: docs.length,
 				users: docs.map(doc => { // structure the output of the response and add it the way tom en me like <3

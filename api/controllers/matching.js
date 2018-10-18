@@ -16,30 +16,46 @@ exports.create_match = (req, res, next) => {
         .select('firstName _id')
         .exec()
         .then(users => {
-            if (users < 1){
-                res.status(401).json({
-                    error: 'match not found',
-                }) 
-            }
-            // create relation
-            const relation = new Relation({
-                _id: newRelationId,
-                first_user_id: user_id,
-                second_user_id: users[0],
-                start_date: new Date(),
-                status: 'active'
-            })
-            relation.save().then(result => {
-                 // update the founded match
-                User.update({ _id: users[0]._id }, { $set: { 
-                    search_spark: false,
-                }}).exec()
+            if (users < 1) {
+                User.update({ _id: user_id }, {
+                    $set: {
+                        search_spark: 'waiting',
+                    }
+                }).exec()
+                res.status(400).json({
+                    message: 'match not found',
+                })
+            } else {
+                console.log('func 2222')
+                // create relation
+                const relation = new Relation({
+                    _id: newRelationId,
+                    first_user_id: user_id,
+                    second_user_id: users[0],
+                    start_date: new Date(),
+                    status: 'active'
+                })
+                relation.save().then(result => {
+                    // update the founded match
+                    User.update({ _id: users[0]._id }, {
+                        $set: {
+                            search_spark: false,
+                        }
+                    }).exec()
 
-                res.status(200).json({
-                    confirmation: 'match found and created new relation',
-                    data: result
-            })
-            })      
+                    res.status(200).json({
+                        confirmation: 'match found and created new relation',
+                        data: result
+                    })
+                }).then(() => {
+                    // update the current user 
+                    User.update({ _id: user_id }, {
+                        $set: {
+                            search_spark: false,
+                        }
+                    }).exec()
+                })
+            }
         })
         .catch(err => {
             res.json({
@@ -47,10 +63,7 @@ exports.create_match = (req, res, next) => {
                 data: err.message
             })
         })
-        // update the current user 
-        User.update({ _id: user_id }, { $set: { 
-            search_spark: false,
-        }}).exec()
+
 }
 
 //const preference = req.params.preference;
