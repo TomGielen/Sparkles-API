@@ -18,10 +18,17 @@ exports.create_match = (req, res, next) => {
         .then(users => {
             console.log(users)
             if (users < 1) {
-                console.log(users)
-                res.status(400).json({
-                    message: 'match not found',
-                })
+                User.update({ _id: user_id }, {
+                    $set: {
+                        status: 'searching',
+                    }
+                }).exec()
+                    .then(result => {
+                        res.status(200).json({
+                            confirmation: 'No match found searching for match...',
+                            data: result
+                        })
+                    })
             } else {
                 console.log('func 2222')
                 // create relation
