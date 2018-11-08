@@ -1,4 +1,5 @@
-const Message = require('../models/Message')
+const Message = require('../models/Message');
+const User = require('../models/User');
 const Relation = require('../models/Relation');
 const mongoose = require('mongoose');
 
@@ -61,21 +62,41 @@ exports.relation_delete = (req, res, next) => {
 		})
 }
 
+// exports.relation_update = (req, res, next) => {
+// 	const id = req.params.relation_id
+// 	const updateOps = {}
+
+// 	for (const ops of req.body) {
+// 		updateOps[ops.propName] = ops.value
+// 	}
+
+// 	Relation.update({ _id: id }, { $set: updateOps })
+// 		.exec()
+// 		.then(result => {
+// 			res.status(200).json({
+// 				message: 'relation updated!',
+// 				result: result
+// 			})
+// 		})
+// 		.catch(err => {
+// 			res.status(500).json({ error: err })
+// 		})
+// }
+
 exports.relation_update = (req, res, next) => {
 	const id = req.params.relation_id
-	const updateOps = {}
+	const firstUserId;
+	const secondUserId;
 
-	for (const ops of req.body) {
-		updateOps[ops.propName] = ops.value
-	}
-
-	Relation.update({ _id: id }, { $set: updateOps })
+	Relation.update({ _id: id }, { status : 'passed' })
 		.exec()
-		.then(result => {
-			res.status(200).json({
-				message: 'relation updated!',
-				result: result
-			})
+		.then( async result => {
+			firstUserId = result.first_user_id;
+			secondUserId = result.second_user_id;
+			// update users
+			await updateUser(firstUserId);
+			await updateUser(secondUserId);
+			console.log('test')
 		})
 		.catch(err => {
 			res.status(500).json({ error: err })
@@ -145,4 +166,16 @@ exports.relation_passed = (req, res, next) => {
 			})
 		})
 }
+
+
+// functions
+updateUser = (id) => {
+	return new Promise(resolve)
+	User.update({ _id: id }, {
+		$set: {
+			status: 'no_relation',
+		}
+	}).exec()
+}
+
 
