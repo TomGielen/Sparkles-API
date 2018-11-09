@@ -9,7 +9,7 @@ const User = mongoose.Schema({
     preference: { type: String, require: true, lowercase: true },
     userImage: { type: String, require: true },
     firstName: { type: String, require: true },
-    lastName: { type: String, require: true, default: 'lastname' },
+    lastName: { type: String, require: true },
     status: { type: String, require: true, default: 'no_relation', enum:['searching', 'in_relation', 'no_relation'] },
     succes_rate: { type: Number, require: true, default: 80 },
     language: { type: String, require: true, default: 'dutch', lowercase: true },
