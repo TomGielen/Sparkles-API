@@ -11,14 +11,12 @@ const User = mongoose.Schema({
     userImage: { type: String, require: true },
     firstName: { type: String, require: true },
     lastName: { type: String, require: true, default: 'your_lastname' },
-    date_of_birth: { type: Date, require: true },
     status: { type: String, require: true, default: 'no_relation', enum:['searching', 'in_relation', 'no_relation'] },
     succes_rate: { type: Number, require: true, default: 80 },
     language: { type: String, require: true, default: 'dutch', lowercase: true },
 })
 module.exports = mongoose.model('User', User)
 
-// add creation_date
-// add date of birth
+//date_of_birth: { type: Date, require: true },
 
 // if the date of birth known then create age_range example : 
