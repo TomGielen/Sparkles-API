@@ -32,9 +32,10 @@ const upload = multer({
 router.get("/" , userController.user_getAll )
 router.get("/:userId" , userController.user_byId )
 router.get("/userImage/:userId" , userController.user_getUserImage )
-router.post("/signup", upload.single('userImage'), userController.user_signup )
+router.post("/signup", userController.user_signup )
 router.post('/login', userController.user_login)
 router.delete('/:userId', userController.user_delete)
 
 module.exports = router
 
+//router.post("/signup", upload.single('userImage'), userController.user_signup )

@@ -8,7 +8,6 @@ const User = mongoose.Schema({
     device_id: { type: String, require: true, unique: true },
     gender: { type: String, require: true, lowercase: true, enum:['male', 'female'] },
     preference: { type: String, require: true, lowercase: true, enum:['male', 'female'] },
-    userImage: { type: String, require: true },
     firstName: { type: String, require: true },
     lastName: { type: String, require: true, default: 'your_lastname' },
     status: { type: String, require: true, default: 'no_relation', enum:['searching', 'in_relation', 'no_relation'] },
@@ -18,5 +17,6 @@ const User = mongoose.Schema({
 module.exports = mongoose.model('User', User)
 
 //date_of_birth: { type: Date, require: true },
+// userImage: { type: String, require: true },
 
 // if the date of birth known then create age_range example : 

@@ -108,7 +108,6 @@ exports.user_signup = (req, res, next) => {
 					device_id: req.body.device_id,
 					gender: req.body.gender,
 					preference: req.body.preference,
-					userImage: req.file.path
 				})
 				user.save()
 					.then(result => {
@@ -134,6 +133,7 @@ exports.user_signup = (req, res, next) => {
 
 
 	// date_of_birth: req.body.date_of_birth,
+	// userImage: req.file.path
 
 exports.user_login = (req, res, next) => {
 
