@@ -141,9 +141,9 @@ exports.user_login = (req, res, next) => {
 	User.find({ device_id: req.body.device_id })
 		.exec()
 		.then(user => {
-			if (user[0].lastName == req.body.lastName) {
+			if (user[0].firstName == req.body.firstName) {
 				const token = jwt.sign({
-					lastName: user[0].lastName,
+					firstName: user[0].firstName,
 					userId: user[0]._id
 				},
 					hardcoded.JWT_KEY,
