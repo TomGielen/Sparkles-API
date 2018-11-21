@@ -49,7 +49,7 @@ exports.create_match = (req, res, next) => {
 
                     res.status(200).json({
                         confirmation: 'match found and created new relation',
-                        data: result
+                        data: relation._id
                     })
                 }).then(() => {
                     // update the current user 
