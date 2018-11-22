@@ -26,7 +26,7 @@ exports.create_match = (req, res, next) => {
                     .then(result => {
                         res.status(200).json({
                             confirmation: 'No match found searching for match...',
-                            data: result
+                            //data: result
                         })
                     })
             } else {
@@ -49,7 +49,7 @@ exports.create_match = (req, res, next) => {
 
                     res.status(200).json({
                         confirmation: 'match found and created new relation',
-                        data: result
+                        //data: result
                     })
                 }).then(() => {
                     // update the current user 
@@ -64,7 +64,7 @@ exports.create_match = (req, res, next) => {
         .catch(err => {
             res.json({
                 confirmation: 'failed',
-                data: err
+                //data: err
             })
         })
 
