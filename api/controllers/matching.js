@@ -64,7 +64,7 @@ exports.create_match = (req, res, next) => {
         .catch(err => {
             res.json({
                 confirmation: 'failed',
-                data: err.message
+                data: err
             })
         })
 
