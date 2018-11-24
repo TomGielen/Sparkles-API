@@ -87,7 +87,7 @@ exports.relation_messages = (req, res, next) => {
 
 	Message.find({ relation_id: relation_id })
 		.sort('date_send')
-		.select('_id user._id user.name text createdAt')
+		//.select('_id user._id user.name text createdAt')
 		.exec()
 		.then(relation => {
 			res.status(200).json({
