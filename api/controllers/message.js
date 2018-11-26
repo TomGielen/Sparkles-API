@@ -37,7 +37,8 @@ exports.message_create = (req, res, next) => {
 	const io = req.app.get('io')
 	const message = new Message({
 		_id: new mongoose.Types.ObjectId(),
-		user: req.body.user,
+		user_id: req.body.user_id,
+		user_name: req.body.user_name,
 		text: req.body.text,
 		createdAt: new Date(),
 		relation_id: req.body.relation_id,
@@ -49,7 +50,8 @@ exports.message_create = (req, res, next) => {
 			res.status(201).json({
 				message: 'Added message succesfully!',
 				createdMessage: {
-					user: result.user,
+					user_id: result.user_id,
+					user_name: result.user_name,
 					text: result.text,
 					createdAt: result.createdAt,
 					relation_id: result.relation_id,
