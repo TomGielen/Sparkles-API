@@ -134,8 +134,7 @@ exports.relation_passed = (req, res, next) => {
 		.exec()
 		.then(relation => {
 			res.status(200).json({
-				confirmation: 'gelukt',
-				data: relation
+				relation
 			})
 		})
 		.catch(err => {
