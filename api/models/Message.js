@@ -2,10 +2,8 @@ const mongoose = require('mongoose')
 
 const Message = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    user: { 
-        _id: String, 
-        name: String 
-    },
+    user_id: { type: String, require: true, },
+    user_name: { type: String, require: true, },
     text: { type: String, require: true, },
     createdAt: { type: Date, require: true, },
     relation_id: mongoose.Schema.Types.ObjectId,
