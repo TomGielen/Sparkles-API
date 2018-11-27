@@ -1,5 +1,6 @@
 const Message = require('../models/Message')
 const Relation = require('../models/Relation');
+const User = require('../models/User');
 const mongoose = require('mongoose');
 
 
@@ -125,7 +126,12 @@ exports.relation_active = (req, res, next) => {
 }
 
 exports.relation_passed = (req, res, next) => {
-	const user_id = req.params.user_id;
+	const user_id = req.params.user_id;	
+	const other_user_id;
+	const other_user_name = "hoi";
+	const other_user_img;
+	const last_message;
+	const last_message_date;
 
 	Relation.find()
 		.or([{ first_user_id: user_id }, { second_user_id: user_id }])
@@ -133,10 +139,10 @@ exports.relation_passed = (req, res, next) => {
 		//.select('relation_id') // define what lines you should see in the response object
 		.exec()
 		.then(relation => {
-			res.status(200).json({
-				confirmation: 'gelukt',
-				data: relation
-			})
+				res.status(200).json({
+					confirmation: 'gelukt',
+					data: relation
+				})
 		})
 		.catch(err => {
 			res.json({
