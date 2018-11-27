@@ -133,7 +133,7 @@ exports.relation_passed = (req, res, next) => {
 		.or([{ first_user_id: user_id }, { second_user_id: user_id }])
 		.where('status', 'passed')
 		//.select('progress _id first_user_id') // define what lines you should see in the response object
-		.populate('first_user_id second_user_id', 'firstName')
+		.populate('first_user_id second_user_id', 'firstName userImage')
 		.exec()
 		.then(docs => {
 			res.json({
