@@ -55,7 +55,6 @@ exports.message_create = (req, res, next) => {
 	// result.messages.push(message))
 
 	Relation.findById(req.body.relation_id)
-		.populate('Message', '_id first_user_name second_user_id')
 		.updateOne({
 			$push: {'messages':message}
 		}).then(result => {
