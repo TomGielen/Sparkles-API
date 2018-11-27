@@ -127,11 +127,6 @@ exports.relation_active = (req, res, next) => {
 
 exports.relation_passed = (req, res, next) => {
 	const user_id = req.params.user_id;	
-	const other_user_id;
-	const other_user_name = "hoi";
-	const other_user_img;
-	const last_message;
-	const last_message_date;
 
 	Relation.find()
 		.or([{ first_user_id: user_id }, { second_user_id: user_id }])
