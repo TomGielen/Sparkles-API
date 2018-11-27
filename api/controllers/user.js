@@ -105,6 +105,7 @@ exports.user_signup = (req, res, next) => {
 					interest_id: new mongoose.Types.ObjectId(),
 					creation_date: new Date(),
 					firstName: req.body.firstName,
+					userImage: "https://www.sickchirpse.com/wp-content/uploads/2018/02/Selfie.jpg",
 					device_id: req.body.device_id,
 					date_of_birth: req.body.date_of_birth,
 					gender: req.body.gender,
