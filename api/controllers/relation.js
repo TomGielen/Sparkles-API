@@ -139,21 +139,6 @@ exports.relation_passed = (req, res, next) => {
 		.exec()
 		.then(relation => {
 			relationObj = relation
-
-			if( relationObj.first_user_id == user_id) {
-				other_user_id = relationObj.second_user_id
-			} else {
-				other_user_id = relationObj.first_user_id
-			}
-
-			User.findById(other_user_id)
-				.select('firstName userImage')
-				.exec()
-				.then(user => {
-					res.status(200).json(
-						user
-					)
-				})
 		})
 		.catch(err => {
 			res.json({
@@ -161,5 +146,20 @@ exports.relation_passed = (req, res, next) => {
 				data: err.message
 			})
 		})
+
+		if( relationObj.first_user_id == user_id) {
+			other_user_id = relationObj.second_user_id
+		} else {
+			other_user_id = relationObj.first_user_id
+		}
+
+		User.findById(other_user_id)
+			.select('firstName userImage')
+			.exec()
+			.then(user => {
+				res.status(200).json(
+					user
+				)
+			})
 }
 
