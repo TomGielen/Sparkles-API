@@ -56,15 +56,15 @@ exports.message_create = (req, res, next) => {
 				createdMessage: {
 					user_id: result.user_id,
 					user_name: result.user_name,
+					user: {
+						id: result.user_id,
+						name: result.user_name,
+						avatar: result.avatar,
+					},
 					text: result.text,
 					createdAt: result.createdAt,
 					relation_id: result.relation_id,
 					_id: result._id,
-					request: {
-						type: 'get',
-						description: 'GET_THIS_MESSAGES',
-						url: 'http://localhost:3000/message/' + result._id,
-					}
 				}
 			})
 		})
