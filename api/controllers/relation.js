@@ -150,19 +150,9 @@ exports.relation_passed = (req, res, next) => {
 				.select('firstName userImage')
 				.exec()
 				.then(user => {
-					userObj = user
-
-					Message.find({ relation_id: relation._id })
-						.sort('date_send')
-						.select('user._id user.name text createdAt')
-						.exec()
-						.then(message => {
-							res.status(200).json({
-								relation: relationObj,
-								user: userObj,
-								message: message
-							})
-						})
+					res.status(200).json(
+						user
+					)
 				})
 		})
 		.catch(err => {
