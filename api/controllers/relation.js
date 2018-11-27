@@ -128,9 +128,6 @@ exports.relation_active = (req, res, next) => {
 exports.relation_passed = (req, res, next) => {
 	const user_id = req.params.user_id;
 	const other_user_id;
-
-	const relationObj={}
-	const userObj={} 
 	
 	Relation.find()
 		.or([{ first_user_id: user_id }, { second_user_id: user_id }])
@@ -138,7 +135,6 @@ exports.relation_passed = (req, res, next) => {
 		//.select('relation_id') // define what lines you should see in the response object
 		.exec()
 		.then(relation => {
-			relationObj = relation
 		})
 		.catch(err => {
 			res.json({
