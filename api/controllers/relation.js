@@ -139,17 +139,10 @@ exports.relation_passed = (req, res, next) => {
 		//.select('relation_id') // define what lines you should see in the response object
 		.exec()
 		.then(relation => {
-			if (relation.first_user_id){
 				res.status(200).json({
 					confirmation: 'gelukt',
-					data: other_user_id
+					data: relation
 				})
-			} else {
-				res.status(200).json({
-					confirmation: 'gelukt',
-					data: other_user_id
-				})
-			}
 		})
 		.catch(err => {
 			res.json({
