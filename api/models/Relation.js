@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const message = require('./Message')
 
 const Relation = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -7,7 +8,7 @@ const Relation = mongoose.Schema({
     start_date: { type: Date, require: true, },
     progress: { type: Number, require: true, default: 0 },
     status: { type: String, require: true },
-    messages: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Message' } ]
+    messages: { type: [] }
 })
 module.exports = mongoose.model('Relation', Relation)
  

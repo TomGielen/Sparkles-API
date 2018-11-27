@@ -85,16 +85,15 @@ exports.relation_update = (req, res, next) => {
 
 exports.relation_messages = (req, res, next) => {
 	const relation_id = req.params.relation_id;
-	// relation
-	// fi
-	Message.find({ relation_id: relation_id })
-		.sort('date_send')
-		//.select('_id user._id user.name text createdAt')
+
+	Relation.findById(relation_id)
+		.sort('messages.createdAt')
+		.select('messages -_id')
 		.exec()
-		.then(relation => {
+		.then(messages => {
 			res.status(200).json({
 				confirmation: 'gelukt',
-				data: relation
+				data: messages.messages
 			})
 		})
 		.catch(err => {
