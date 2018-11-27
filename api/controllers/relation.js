@@ -128,7 +128,7 @@ exports.relation_active = (req, res, next) => {
 exports.relation_passed = (req, res, next) => {
 	const user_id = req.params.user_id;	
 	const other_user_id;
-	const other_user_name;
+	const other_user_name = "hoi";
 	const other_user_img;
 	const last_message;
 	const last_message_date;
@@ -139,14 +139,17 @@ exports.relation_passed = (req, res, next) => {
 		//.select('relation_id') // define what lines you should see in the response object
 		.exec()
 		.then(relation => {
-			if (user_id == relation.first_user_id){
-				other_user_id = relation.second_user_id
+			if (relation.first_user_id){
+				res.status(200).json({
+					confirmation: 'gelukt',
+					data: other_user_id
+				})
 			} else {
-				other_user_id = relation.first_user_id
+				res.status(200).json({
+					confirmation: 'gelukt',
+					data: other_user_id
+				})
 			}
-			res.status(200).json(
-				other_user_id
-			)
 		})
 		.catch(err => {
 			res.json({
