@@ -85,7 +85,8 @@ exports.relation_update = (req, res, next) => {
 
 exports.relation_messages = (req, res, next) => {
 	const relation_id = req.params.relation_id;
-
+	// relation
+	// fi
 	Message.find({ relation_id: relation_id })
 		.sort('date_send')
 		//.select('_id user._id user.name text createdAt')
@@ -126,18 +127,21 @@ exports.relation_active = (req, res, next) => {
 }
 
 exports.relation_passed = (req, res, next) => {
-	const user_id = req.params.user_id;	
+	const user_id = req.params.user_id;
 
 	Relation.find()
 		.or([{ first_user_id: user_id }, { second_user_id: user_id }])
 		.where('status', 'passed')
-		//.select('relation_id') // define what lines you should see in the response object
+		//.select('progress _id first_user_id') // define what lines you should see in the response object
+		.populate('first_user_id second_user_id', 'firstName device_id')
 		.exec()
-		.then(relation => {
-				res.status(200).json({
-					confirmation: 'gelukt',
-					data: relation
-				})
+		.then(docs => {
+			res.json({
+				confirmation: 'mislukt',
+				data: docs
+			})
+			
+			//res.status(200).json(response)
 		})
 		.catch(err => {
 			res.json({
