@@ -8,7 +8,7 @@ const Relation = mongoose.Schema({
     start_date: { type: Date, require: true, },
     progress: { type: Number, require: true, default: 0 },
     status: { type: String, require: true },
-    messages: { type: [] }
+    messages: { type: [], ref: 'Message' }
 })
 module.exports = mongoose.model('Relation', Relation)
  
