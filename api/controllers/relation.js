@@ -1,5 +1,6 @@
 const Message = require('../models/Message')
 const Relation = require('../models/Relation');
+const User = require('../models/User');
 const mongoose = require('mongoose');
 
 
@@ -126,17 +127,18 @@ exports.relation_active = (req, res, next) => {
 
 exports.relation_passed = (req, res, next) => {
 	const user_id = req.params.user_id;
+	const other_user_id;
 
+	const relationObj={}
+	const userObj={} 
+	
 	Relation.find()
 		.or([{ first_user_id: user_id }, { second_user_id: user_id }])
 		.where('status', 'passed')
 		//.select('relation_id') // define what lines you should see in the response object
 		.exec()
 		.then(relation => {
-			res.status(200).json({
-				confirmation: 'gelukt',
-				data: relation
-			})
+			relationObj = relation
 		})
 		.catch(err => {
 			res.json({
@@ -144,5 +146,30 @@ exports.relation_passed = (req, res, next) => {
 				data: err.message
 			})
 		})
+
+			if( relationObj.first_user_id == user_id) {
+				other_user_id = relationObj.second_user_id
+			} else {
+				other_user_id = relationObj.first_user_id
+			}
+
+		User.findById(other_user_id)
+			.select('firstName userImage')
+			.exec()
+			.then(user => {
+				userObj = user
+			})
+
+		Message.find({ relation_id: relation._id })
+			.sort('date_send')
+			.select('user._id user.name text createdAt')
+			.exec()
+			.then(message => {
+				res.status(200).json({
+					relation: relationObj,
+					user: userObj,
+					message: message
+				})
+			})
 }
 
