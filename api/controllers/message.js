@@ -39,6 +39,10 @@ exports.message_create = (req, res, next) => {
 		_id: new mongoose.Types.ObjectId(),
 		user_id: req.body.user_id,
 		user_name: req.body.user_name,
+		user: {
+			id: req.body.user_id,
+			name: req.body.user_name,
+		},
 		text: req.body.text,
 		createdAt: new Date(),
 		relation_id: req.body.relation_id,
