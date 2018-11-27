@@ -1,4 +1,5 @@
 const Message = require('../models/Message');
+const Relation = require('../models/Relation');
 const mongoose = require('mongoose');
 
 exports.message_get_all = (req, res, next) => {
@@ -53,24 +54,14 @@ exports.message_create = (req, res, next) => {
 	// then(result => 
 	// result.messages.push(message))
 
-	message.save()
-		.then(result => {
+	Relation.findById(req.body.relation_id)
+		.updateOne({
+			$push: {'messages':message}
+		}).then(result => {
 			io.emit('addMessage', req.body);
 			res.status(201).json({
 				message: 'Added message succesfully!',
-				createdMessage: {
-					user_id: result.user_id,
-					user_name: result.user_name,
-					user: {
-						id: result.user_id,
-						name: result.user_name,
-						avatar: result.avatar,
-					},
-					text: result.text,
-					createdAt: result.createdAt,
-					relation_id: result.relation_id,
-					_id: result._id,
-				}
+				createdMessage: message
 			})
 		})
 		.catch(err => {

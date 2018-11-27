@@ -7,7 +7,7 @@ const Message = mongoose.Schema({
     user: {
         id: { type: String, require: true, },
         name: { type: String, require: true, },
-        avatar: { type: String, require: false, default: 'your_lastname' },
+        avatar: { type: String, require: false, default: 'linktoimage' },
     },
     text: { type: String, require: true, },
     createdAt: { type: Date, require: true, },
