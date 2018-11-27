@@ -133,9 +133,10 @@ exports.relation_passed = (req, res, next) => {
 		//.select('relation_id') // define what lines you should see in the response object
 		.exec()
 		.then(relation => {
-			res.status(200).json(
-				relation
-			)
+			res.status(200).json({
+				confirmation: 'gelukt',
+				data: relation
+			})
 		})
 		.catch(err => {
 			res.json({
