@@ -48,6 +48,11 @@ exports.message_create = (req, res, next) => {
 		relation_id: req.body.relation_id,
 	})
 
+	// Relation
+	// where relatieId = id
+	// then(result => 
+	// result.messages.push(message))
+
 	message.save()
 		.then(result => {
 			io.emit('addMessage', req.body);
