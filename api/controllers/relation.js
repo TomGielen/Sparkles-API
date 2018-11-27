@@ -126,15 +126,17 @@ exports.relation_active = (req, res, next) => {
 }
 
 exports.relation_passed = (req, res, next) => {
-	const user_id = req.params.user_id;
-	const other_user_id;
-	
+	const user_id = req.params.user_id;	
 	Relation.find()
 		.or([{ first_user_id: user_id }, { second_user_id: user_id }])
 		.where('status', 'passed')
 		//.select('relation_id') // define what lines you should see in the response object
 		.exec()
 		.then(relation => {
+			res.status(200).json({
+				confirmation: 'gelukt',
+				data: relation
+			})
 		})
 		.catch(err => {
 			res.json({
