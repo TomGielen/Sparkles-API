@@ -139,13 +139,6 @@ exports.relation_passed = (req, res, next) => {
 		.exec()
 		.then(relation => {
 			relationObj = relation
-		})
-		.catch(err => {
-			res.json({
-				confirmation: 'mislukt',
-				data: err.message
-			})
-		})
 
 			if( relationObj.first_user_id == user_id) {
 				other_user_id = relationObj.second_user_id
@@ -153,23 +146,30 @@ exports.relation_passed = (req, res, next) => {
 				other_user_id = relationObj.first_user_id
 			}
 
-		User.findById(other_user_id)
-			.select('firstName userImage')
-			.exec()
-			.then(user => {
-				userObj = user
-			})
+			User.findById(other_user_id)
+				.select('firstName userImage')
+				.exec()
+				.then(user => {
+					userObj = user
 
-		Message.find({ relation_id: relation._id })
-			.sort('date_send')
-			.select('user._id user.name text createdAt')
-			.exec()
-			.then(message => {
-				res.status(200).json({
-					relation: relationObj,
-					user: userObj,
-					message: message
+					Message.find({ relation_id: relation._id })
+						.sort('date_send')
+						.select('user._id user.name text createdAt')
+						.exec()
+						.then(message => {
+							res.status(200).json({
+								relation: relationObj,
+								user: userObj,
+								message: message
+							})
+						})
 				})
+		})
+		.catch(err => {
+			res.json({
+				confirmation: 'mislukt',
+				data: err.message
 			})
+		})
 }
 
