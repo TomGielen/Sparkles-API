@@ -110,6 +110,7 @@ exports.relation_active = (req, res, next) => {
 	Relation.find()
 		.or([{ first_user_id: user_id }, { second_user_id: user_id }])
 		.where('status', 'active')
+		.populate('first_user_id second_user_id', 'firstName userImage')
 		.select('first_user_id second_user_id start_date progress status') // define what lines you should see in the response object
 		.exec()
 		.then(relation => {
@@ -133,7 +134,7 @@ exports.relation_passed = (req, res, next) => {
 		.where('status', 'passed')
 		//.select('progress _id first_user_id') // define what lines you should see in the response object
 		.populate('first_user_id second_user_id', 'firstName userImage')
-		.populate('messages', '_id text', null, { limit: 1, sort: { 'createdAt': 1 } })
+		.populate('messages', '_id text', null, { limit: 1, sort: { 'createdAt': -1 } })
 		.exec()
 		.then(docs => {
 			res.json({
