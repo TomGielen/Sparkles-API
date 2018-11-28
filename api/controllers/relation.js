@@ -115,7 +115,7 @@ exports.relation_active = (req, res, next) => {
 		.exec()
 		.then(relation => {
 			res.status(200).json(
-				relation
+				relation[0]
 			)
 		})
 		.catch(err => {
