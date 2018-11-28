@@ -111,6 +111,7 @@ exports.relation_active = (req, res, next) => {
 		.or([{ first_user_id: user_id }, { second_user_id: user_id }])
 		.where('status', 'active')
 		.populate('first_user_id second_user_id', 'firstName userImage')
+		.populate('messages', '_id text', null, { limit: 1, sort: { 'createdAt': -1 } })
 		.select('first_user_id second_user_id start_date progress status') // define what lines you should see in the response object
 		.exec()
 		.then(relation => {
