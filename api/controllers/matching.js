@@ -6,6 +6,7 @@ exports.create_match = (req, res, next) => {
     const preference = req.params.preference;
     const language = req.params.language;
     const user_id = req.params.user_id;
+    const io = req.app.get('io');
     const newRelationId = new mongoose.Types.ObjectId();
 
     User.find()
@@ -24,6 +25,7 @@ exports.create_match = (req, res, next) => {
                     }
                 }).exec()
                     .then(result => {
+                        io.emit('updateStatus', req.body);
                         res.status(200).json({
                             confirmation: 'No match found searching for match...',
                             data: result
@@ -41,6 +43,7 @@ exports.create_match = (req, res, next) => {
                 })
                 relation.save().then(result => {
                     // update the founded match
+                    io.emit('updateStatus', req.body);
                     User.update({ _id: users[0]._id }, {
                         $set: {
                             status: 'in_relation',
