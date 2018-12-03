@@ -18,6 +18,20 @@ io.on('connection', socket => {
   })
 })
 
+var Pusher = require('pusher');
+
+var pusher = new Pusher({
+  appId: '663311',
+  key: '86d6e29d735da206f7c9',
+  secret: 'd341294674a3bb1718de',
+  cluster: 'eu',
+  encrypted: true
+});
+
+pusher.trigger('my-channel', 'my-event', {
+  "message": "hello world"
+});
+
 app.set('io', io);
 
 server.listen(port, () => console.log(`Listening on port ${port}`))
