@@ -115,7 +115,7 @@ exports.user_signup = (req, res, next) => {
 					.then(result => {
 						console.log(result)
 						res.status(201).json({
-							User: result
+							result
 							// request: {
 							// 	type: 'GET personal ',
 							// 	description: 'GET_THIS_MESSAGES',
